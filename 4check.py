@@ -3,6 +3,7 @@ import argparse
 import os
 import time
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
 
 # Vérifie si le dossier "threads" existe. S'il n'existe pas, le crée.
@@ -42,19 +43,19 @@ def create_thread_html_file(path_, no_thread, key_board):
     r = requests.get(url_thread)
     html_thread = r.text
     soup = BeautifulSoup(html_thread, 'html.parser')
-    with open(path_ + 'threads/' + no_thread + '/' + no_thread + '.html', "w", encoding='utf-8') as f:
+    with open(path_ + 'threads/' + no_thread + '/index.html', "w", encoding='utf-8') as f:
         f.write(str(soup))
-    print(path_ + 'threads/' + no_thread + '/' + no_thread + '.html créé')
+    print(path_ + 'threads/' + no_thread + '/index.html créé')
 
 
 def parse_html_file(path_, no_thread):
-    with open(path_ + 'threads/' + no_thread + '/' + no_thread + '.html', "r", encoding='utf-8') as f:
+    with open(path_ + 'threads/' + no_thread + '/index.html', "r", encoding='utf-8') as f:
         file = f.read()
         new_file = file.replace("//", "https://")
 
-    with open(path_ + 'threads/' + no_thread + '/' + no_thread + '.html', "w", encoding='utf-8') as f:
+    with open(path_ + 'threads/' + no_thread + '/index.html', "w", encoding='utf-8') as f:
         f.write(new_file)
-    print(path_ + 'threads/' + no_thread + '/' + no_thread + '.html parsé')
+    print(path_ + 'threads/' + no_thread + '/index.html parsé')
 
 
 parser = argparse.ArgumentParser(description='Monitoring de board 4chan')
@@ -156,7 +157,6 @@ while True:
                         print("threads " + str(thread.get('no')) + " récupéré")
                         create_thread_folder(path, str(thread.get('no')))
                         create_thread_txt_file(path, str(thread.get('no')))
-
                         create_thread_html_file(path, str(thread.get('no')), args.board)
                         parse_html_file(path, str(thread.get('no')))
                         nb_threads += 1
@@ -165,4 +165,6 @@ while True:
     print("nombre de thread(s) trouvés : ", nb_threads)
     print("nombre de mise à jour : ", nb_mj)
     print("Ctrl+C pour stopper le programme")
-    time.sleep(120)
+
+    for i in tqdm(range(0, 120), desc="next update (120s) : "):
+        time.sleep(1)
