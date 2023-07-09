@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 
-# Vérifie si le dossier "threads" existe. S'il n'existe pas, le crée.
+# Vérifie si le dossier "threads" existe. S'il n'existe pas, le créer.
 def path_change(path_):
     new_path = path_.replace('\\', '/')
     new_path += "/"
