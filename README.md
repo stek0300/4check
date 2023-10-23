@@ -27,7 +27,7 @@ cd 4check
 2. Exécutez le script :
 
 ```bash
-python monitor.py -b [board] -t [tag1 tag2 ...] -p [chemin]
+python 4check.py -b [board] -t [tag1 tag2 ...] -p [chemin]
 ```
     -b ou --board : spécifie le board 4chan à surveiller (par exemple, b pour le board Random).
     -t ou --tag : spécifie un ou plusieurs tags à surveiller.
@@ -36,7 +36,7 @@ python monitor.py -b [board] -t [tag1 tag2 ...] -p [chemin]
 Par exemple, pour surveiller le board Random (b) pour des threads contenant les tags "meme" et "pepe", et stocker les résultats dans un dossier spécifié :
 
 ```bash
-python monitor.py -b b -t meme pepe -p /chemin/vers/dossier
+python 4check.py -b b -t meme pepe -p /chemin/vers/dossier
 ```
 Le programme continuera de surveiller le board et de télécharger les threads correspondants jusqu'à ce que vous l'arrêtiez avec Ctrl+C.
 
